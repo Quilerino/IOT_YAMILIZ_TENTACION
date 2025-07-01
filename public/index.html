@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prototipo IOT — Login</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+
+  <!-- PANTALLA DE LOGIN -->
+  <div id="login-container" class="login-container">
+    <h2>Prototipo IOT</h2>
+    <p>Ingrese sus credenciales</p>
+    <input id="login-deviceId" type="text" placeholder="Device ID" />
+    <input id="login-password" type="password" placeholder="Password" />
+    <button id="login-button" class="btn">Entrar</button>
+    <p id="login-error" class="error"></p>
+  </div>
+
+  <!-- DASHBOARD (oculto hasta login OK) -->
+  <div id="dashboard" class="dashboard" style="display:none;">
+    <!-- ENCABEZADO -->
+    <div class="dashboard-header">
+      <div class="title" id="deviceName">Prototipo IOT</div>
+      <div class="status"><span id="status1">Online</span></div>
+      <button class="close" id="closeBtn">×</button>
+    </div>
+
+    <!-- CUERPO PRINCIPAL -->
+    <div class="dashboard-main">
+      <!-- Gráficos -->
+      <section class="block block-charts">
+        <h4>Gráficos</h4>
+        <div class="chart-wrapper">
+          <h5>Temperatura</h5>
+          <canvas id="chartTempMotor"></canvas>
+        </div>
+        <div class="chart-wrapper" style="margin-top:1em;">
+          <h5>Vibración</h5>
+          <canvas id="chartVibMotor"></canvas>
+        </div>
+      </section>
+
+      <!-- Sensores -->
+      <section class="block block-sensors">
+        <h4>Datos en Tiempo Real</h4>
+        <div class="datos"><span>Temperatura:</span><span id="motorTemp">-- °C</span></div>
+        <div class="datos"><span>Vibración:</span><span id="motorVibration">-- mm/s</span></div>
+      </section>
+
+      <!-- Configuración -->
+      <section class="block block-controls">
+        <h4>Configuración Crítica</h4>
+        <div class="led"><span>Temp. Máxima:</span><input id="tempThreshold" type="number" placeholder="Ej. 75"></div>
+        <div class="led"><span>Máx. actual:</span><span id="tempCurrent">-- °C</span></div>
+        <div class="led" style="margin-top:0.5em;"><span>Vib. Máxima:</span><input id="vibThreshold" type="number" placeholder="Ej. 10"></div>
+        <div class="led"><span>Máx. actual:</span><span id="vibCurrent">-- mm/s2</span></div>
+        <button class="btn" id="saveThresholdsBtn" style="margin-top:1em;">CAMBIAR</button>
+      </section>
+
+      <!-- Logs -->
+      <section class="block block-logs">
+        <h4>Mensajes</h4>
+        <div id="mensajes" class="log-messages"></div>
+      </section>
+
+      <!-- Alarmas -->
+      <section class="block block-alarms">
+        <h4>Alarmas</h4>
+        <div class="alarm-row">
+          <div class="alarm-box"><span>Temp. Alta</span><div id="tempAlarmLed" class="led-large"></div></div>
+          <div class="alarm-box"><span>Vib. Alta</span><div id="vibAlarmLed" class="led-large"></div></div>
+          <div class="alarm-box buzzer-box"><span>Buzzer</span><i id="buzzerIcon" class="fas fa-bullhorn"></i></div>
+        </div>
+        <button class="btn btn-alert" id="deactivateAlarmBtn"><i class="fas fa-power-off"></i> APAGAR BUZZER</button>
+      </section>
+    </div>
+
+    <div class="credits">
+      <em>Desarrollado por:</em>
+      <em>Lazo Olaechea, Joel Emanuel</em>
+      <em>Aburto Santos, Mario Enrique</em>
+    </div>
+    <div class="credits">
+      <em>Universidad:</em>
+      Universidad Peruana De Ciencias Aplicada (UPC)
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>
